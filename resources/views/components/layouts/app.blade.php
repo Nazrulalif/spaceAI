@@ -23,7 +23,6 @@
 
 <body class="min-vh-100">
     <livewire:partials.sidebar>
-
         <main class="col-sm-10" id="main">
             <livewire:partials.navbar>
             <div class="container-fluid">

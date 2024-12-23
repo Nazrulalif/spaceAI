@@ -1,3 +1,5 @@
 <div>
-    {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
+    <div class="collapse show collapse-horizontal p-3 shadow-sm min-vh-100" style="background-color: #373a41" id="innerCollapse">
+        test
+    </div>
 </div>

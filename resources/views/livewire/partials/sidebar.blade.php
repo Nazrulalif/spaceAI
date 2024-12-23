@@ -29,39 +29,30 @@
       </svg>
     <aside class="collapse show collapse-horizontal col-sm-2 p-3 shadow-sm bg-body-tertiary min-vh-100"
         id="collapseWidthExample">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none ">
-            <svg class="bi pe-none me-2" width="40" height="32">
-                <use xlink:href="#bootstrap" />
-            </svg>
-            <span class="fs-4">Sidebar</span>
+        <a href="/" class="d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none ">
+          <img class="img-fluid me-2 " src="{{asset('assets/icons/spaceAI.png')}}" style="width: 60% " id="responsive-image">  
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto text-nowrap">
             <li class="nav-item">
                 <a href="#" class="nav-link link-body-emphasis" aria-current="page">
-                    <i class="bi bi-house-door me-2"></i> Home
+                  <img class="img-fluid me-2" src="{{asset('assets/icons/chatgpt-icon.svg')}}"  id="responsive-icon" style="width: 18% " >  
+                  ChatGPT
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link link-body-emphasis">
-                    <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                  <img class="img-fluid me-2" src="{{asset('assets/icons/google-gemini-icon.svg')}}"  id="responsive-icon" style="width: 18% ">  
+                  Gemini
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link link-body-emphasis">
-                    <i class="bi bi-table me-2"></i> Orders
+                  <img class="img-fluid me-2" src="{{asset('assets/icons/claude-ai-icon.svg')}}"  id="responsive-icon" style="width: 18% ">  
+                   Claude.ai
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link link-body-emphasis">
-                    <i class="bi bi-grid me-2"></i> Products
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link link-body-emphasis">
-                    <i class="bi bi-person-circle me-2"></i> Customers
-                </a>
-            </li>
+            
         </ul>
     </aside>
 </div>

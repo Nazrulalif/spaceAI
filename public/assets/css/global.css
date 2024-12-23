@@ -32,6 +32,9 @@ main {
   transition: all 0.3s ease;
 }
 @media screen and (max-width: 575px) {
+  #responsive-icon {
+    width: 12% !important;
+  }
   #sidebarshow {
     display: inline;
     
@@ -43,6 +46,10 @@ main {
   /* #sidebartoggle {
     display: none;
   } */
+}
+#innerCollapse{
+  display: block;
+  margin-top: 3.5rem;
 }
 
 .b-example-divider {
@@ -96,4 +103,14 @@ main {
   padding: .1875rem .5rem;
   margin-top: .125rem;
   margin-left: 1.25rem;
+}
+
+[data-bs-theme="dark"] .btn-dark {
+  background-color: var(--bs-light);
+  color: var(--bs-dark);
+}
+
+[data-bs-theme="dark"] .btn-primary {
+  background-color: var(--bs-light);
+  color: var(--bs-dark);
 }
