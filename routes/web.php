@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Gemini\Gemini;
 use App\Livewire\Openai\Index;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', Index::class);
+Route::get('/', Gemini::class)->name('gemini');
+// Route::get('/openai', Index::class)->name('openai);

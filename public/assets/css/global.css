@@ -1,5 +1,6 @@
+
 body {
-  height: 100%;
+  margin: 0;
 }
 
 aside {
@@ -40,7 +41,7 @@ main {
     
   }
   aside{
-    display: block;
+    display: fixed !important;
     margin-top: 3.5rem;
   }
   /* #sidebartoggle {
@@ -105,12 +106,107 @@ main {
   margin-left: 1.25rem;
 }
 
-[data-bs-theme="dark"] .btn-dark {
-  background-color: var(--bs-light);
-  color: var(--bs-dark);
+
+.chat-window {
+  min-height: 75vh;
+  max-height: 75vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  scrollbar-color: #6c757d transparent;
 }
 
-[data-bs-theme="dark"] .btn-primary {
-  background-color: var(--bs-light);
-  color: var(--bs-dark);
+.chat-window::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-window::-webkit-scrollbar-thumb {
+  background: #6c757d;
+  border-radius: 4px;
+}
+
+.message {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 12px;
+  max-width: 75%;
+  word-wrap: break-word;
+}
+
+.message.user {
+  background-color: #0d6efd;
+  color: #fff;
+  text-align: right;
+}
+
+[data-bs-theme="light"]  {
+  .dark-image{
+      display: none;
+  }
+  .active {
+      background-color: var(--bs-dark);
+      color: var(--bs-light);
+  }
+  .dropdown-item:active{
+      background-color: var(--bs-dark);
+      color: var(--bs-light);
+  }
+  .nav-link.active {
+      background-color:var(--bs-dark); /* Or any color for light mode */
+      color: #ffffff !important;
+  }
+  .navbar{
+      background-color: var(--bs-white) !important;
+  }
+
+  .bg-light{
+      background-color: var(--bs-dark) !important;
+      color: var(--bs-light);
+  }
+  .form-control:focus {
+      border-color: black;
+      box-shadow: 0 0 4px 2px rgba(255, 255, 255, 0.5);
+      outline: none;
+  }
+}
+
+[data-bs-theme="dark"]  {
+  .light-image{
+      display: none;
+  }
+  .btn-dark {
+      background-color: var(--bs-light);
+      color: var(--bs-dark);
+  }
+  .btn-primary {
+      background-color: var(--bs-light);
+      color: var(--bs-dark);
+  }
+  .active {
+      background-color: var(--bs-light);
+      color: var(--bs-dark);
+  }
+
+  .dropdown-item:active{
+      background-color: var(--bs-light);
+      color: var(--bs-dark);
+  }
+  
+  .nav-link.active {
+      background-color: #000000; /* Or any color for light mode */
+      color: rgb(255, 255, 255);
+  }
+
+  .bg-light{
+      color: var(--bs-dark);
+  }
+  .form-control:focus {
+      border-color: white;
+      box-shadow: 0 0 4px 2px rgba(255, 255, 255, 0.5);
+      outline: none;
+  }
+
+  .message.ai {
+    /* background-color: #212529; */
+    color: var(--bs-bg-light);
+  }
 }

@@ -1,22 +1,22 @@
 <div>
     <!-- NavBar -->
-    <nav class="navbar sticky-top navbar-expand-lg  bg-body-tertiary">
+    <nav class="navbar sticky-top navbar-expand-lg bg-dark">
         <div class="container-fluid">
     
-          <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
+          <button class="btn border-0" type="button" data-bs-toggle="collapse"
             data-bs-target="#collapseWidthExample" aria-expanded="true" aria-controls="collapseWidthExample"
             style="margin-right: 10px; padding: 0px 5px 0px 5px;" id="sidebartoggle" onclick="changeclass()"> <i
               class="bi bi-arrows-expand-vertical"></i>
           </button>
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand font-monospace fs-5" href="/">Beta v1.0</a>
     
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end gap-3" id="navbarSupportedContent">
-            <button class="btn btn-dark rounded-pill">Log in</button>
-            <button class="btn rounded-pill">Sign up</button>
+            {{-- <button class="btn btn-dark rounded-pill">Log in</button>
+            <button class="btn rounded-pill">Sign up</button> --}}
     
             <!-- Cambair Tema -->
             <div class="dropdown-center" style="padding-left: 10px;">
@@ -71,4 +71,5 @@
           </div>
         </div>
       </nav>
+      
 </div>

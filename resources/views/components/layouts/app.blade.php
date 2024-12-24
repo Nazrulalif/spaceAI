@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? 'SpaceAI' }}</title>
     <script src="{{asset('assets/js/color-modes.js')}}"></script>
     <!-- Bootstrao 5.3.2 -->
@@ -17,17 +18,19 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{asset('assets/css/global.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
     @livewireStyles
-    
+
 </head>
 
-<body class="min-vh-100">
+<body>
     <livewire:partials.sidebar>
         <main class="col-sm-10" id="main">
             <livewire:partials.navbar>
-            <div class="container-fluid">
-                {{ $slot }}
-            </div>
+                <div class="container-fluid">
+                    {{ $slot }}
+                </div>
         </main>
         <!-- Script de bootstap 5.2.3 -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -48,12 +51,17 @@
         <!-- Github buttons -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         @livewireScripts
-      
+
         <script>
-          function changeclass() {
-            $("#main").toggleClass('col-sm-10 col-sm-12');
-          }
-      
+            $(document).ready(function () {
+                if (window.innerWidth <= 575) {
+                    document.getElementById('collapseWidthExample').classList.remove('show');
+                }
+            })
+            function changeclass() {
+                $("#main").toggleClass('col-sm-10 col-sm-12');
+            }
+
         </script>
 </body>
 
