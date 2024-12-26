@@ -1,6 +1,6 @@
 <div>
     @include('livewire.partials.navbar')
-    
+
     <div class="d-flex flex-column ">
         <div class="px-1 px-md-5 pt-3">
             <div class="w-100">
@@ -45,7 +45,7 @@
                         </button>
                         <button id="scrollDownBtn" class="btn btn-dark rounded-circle "
                         style="display: none;">
-                        <i class="fas fa-arrow-down"></i>
+                            <i class="fas fa-arrow-down"></i>
                         </button>
                     </form>
 
@@ -74,7 +74,7 @@
 
             // Save the current chat history to localStorage
             const chatHistory = @this.results; // Fetch the results from Livewire component
-            localStorage.setItem('chat_history_gemini', JSON.stringify(chatHistory));
+            localStorage.setItem('chat_history_llama', JSON.stringify(chatHistory));
         });
     });
 
@@ -96,19 +96,9 @@
         chatWindow.appendChild(userDiv);
 
         chatInput.value = '';
-
-        // Simulate AI response
-        setTimeout(() => {
-            const aiDiv = document.createElement('div');
-            aiDiv.className = 'text-start my-2';
-            aiDiv.innerHTML = `<div class="message ai">Gemini is typing...</div>`;
-            chatWindow.appendChild(aiDiv);
-
-            // Scroll to the bottom
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }, 1000);
     });
-   // Show/Hide Scroll Down Button based on scroll position
+
+       // Show/Hide Scroll Down Button based on scroll position
    chatWindow.addEventListener('scroll', () => {
         if (chatWindow.scrollHeight - chatWindow.scrollTop > chatWindow.clientHeight + 100) {
             scrollDownBtn.style.display = 'block';
@@ -126,4 +116,5 @@
     Livewire.hook('message.processed', () => {
         chatWindow.scrollTop = chatWindow.scrollHeight;
     });
+
 </script>

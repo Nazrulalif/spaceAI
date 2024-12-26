@@ -133,9 +133,9 @@ main {
 }
 
 .message.user {
-  background-color: #0d6efd;
+  background-color: #303030;
   color: #fff;
-  text-align: right;
+  text-align: left;
 }
 
 [data-bs-theme="light"]  {
@@ -167,11 +167,18 @@ main {
       box-shadow: 0 0 4px 2px rgba(255, 255, 255, 0.5);
       outline: none;
   }
+  aside{
+    background-color: var(--bs-light);
+  }
+
 }
 
 [data-bs-theme="dark"]  {
   .light-image{
       display: none;
+  }
+  aside{
+    background-color: #171717;
   }
   .btn-dark {
       background-color: var(--bs-light);
@@ -190,9 +197,9 @@ main {
       background-color: var(--bs-light);
       color: var(--bs-dark);
   }
-  
+
   .nav-link.active {
-      background-color: #000000; /* Or any color for light mode */
+      background-color: #303030; /* Or any color for light mode */
       color: rgb(255, 255, 255);
   }
 

@@ -1,53 +1,64 @@
 <?php
 
-namespace App\Livewire\Gemini;
+namespace App\Livewire\Gemma;
 
 use Livewire\Component;
-use Gemini\Laravel\Facades\Gemini as GeminiAPI;
+use LucianoTonet\GroqLaravel\Facades\Groq;
 
-class Gemini extends Component
-{ 
+class Gemma extends Component
+{
+    
     public $message;
-    public $model_type;
     public $results = []; // Stores all chat messages
+    public $model = 'gemma2-9b-it';
+    public $model_type;
 
-   
     public function mount()
     {
         $this->model_type = [
-            'gemini' => 'Gemini 1.5 Pro',
+            'gemma2-9b-it' => 'gemma2-9b-it',
         ];
-        // Load chat history from localStorage when the component is mounted
-        $this->results = session()->get('chat_history_gemini', []);  // Load saved chat history from session
+
+        $this->results = session()->get('chat_history_gemma', []);
     }
+
     public function clear()
     {
-        session()->forget('chat_history_gemini');
+        session()->forget('chat_history_gemma');
         $this->results = [];
-        return redirect()->route('gemini');
+        return redirect()->route('gemma');
     }
-    
+
     public function send()
     {
         if (empty($this->message)) {
             return;
         }
-
-        // Add the user message to the messages array
+        // Add user message to chat history
         $this->results[] = [
             'type' => 'user',
             'content' => $this->message,
         ];
 
-        // Call Gemini API
         try {
-            $response = GeminiAPI::geminiPro()->generateContent($this->message);
+          
+            $response = Groq::chat()->completions()->create([
+                'model' => $this->model,
+                'messages' => [
+                    [
+                    'role' => 'user', 
+                    'content' => $this->message
+                    ],
+                ],
+            ]);
+            
+            $aiResponse = $response['choices'][0]['message']['content'] ?? 'No response available.';
 
-            // Add AI response to the messages array
             $this->results[] = [
                 'type' => 'ai',
-                'content' => $this->formatGeminiResponse($response->text()),
+                'content' => $this->formatGemmaResponse($aiResponse),
             ];
+
         } catch (\Exception $e) {
             // Handle API errors
             $this->results[] = [
@@ -57,12 +68,12 @@ class Gemini extends Component
         }
 
         // Store the chat history in session
-        session()->put('chat_history_gemini', $this->results);
+        session()->put('chat_history_gemma', $this->results);
 
         // Clear the input field
         $this->message = '';
     }
-    public function formatGeminiResponse($text)
+    public function formatGemmaResponse($text)
     {
         // Convert **bold** to <strong>bold</strong>
         $text = preg_replace('/\*\*(.*?)\*\*/', '<strong>$1</strong>', $text);
@@ -78,6 +89,6 @@ class Gemini extends Component
     }
     public function render()
     {
-        return view('livewire.gemini.gemini');
+        return view('livewire.gemma.gemma');
     }
 }

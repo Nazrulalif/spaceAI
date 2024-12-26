@@ -27,7 +27,7 @@
             </path>
         </symbol>
     </svg>
-    <aside class="collapse show collapse-horizontal col-sm-2 p-3 shadow-sm bg-body-tertiary min-vh-100"
+    <aside class="collapse show collapse-horizontal col-sm-2 p-3 shadow-sm min-vh-100"
         id="collapseWidthExample">
         <a href="/"
             class="d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none ">
@@ -38,13 +38,20 @@
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto text-nowrap">
-            <li class="nav-item ">
-                {{-- <a wire:navigation href="/" class="nav-link link-body-emphasis {{request()->is('/') ? 'active' : ''}} " aria-current="page">
+            {{-- <li class="nav-item ">
+                <a wire:navigation href="/" class="nav-link link-body-emphasis {{request()->is('/') ? 'active' : ''}} " aria-current="page">
                     <img class="img-fluid me-2" src="{{asset('assets/icons/chatgpt-icon.svg')}}" id="responsive-icon"
                         style="width: 18% ">
                     ChatGPT
-                </a> --}}
-            </li>
+                </a>
+            </li> --}}
+            {{-- <li class="nav-item">
+                <a wire:navigation href="claudeai" class="nav-link link-body-emphasis  {{request()->is('claudeai') ? 'active' : ''}}">
+                    <img class="img-fluid me-2" src="{{asset('assets/icons/claude-ai-icon.svg')}}" id="responsive-icon"
+                        style="width: 18% ">
+                    Claude.ai
+                </a>
+            </li> --}}
             <li class="nav-item">
                 <a wire:navigation href="/" class="nav-link link-body-emphasis {{request()->is('/') ? 'active' : ''}}">
                     <img class="img-fluid me-2" src="{{asset('assets/icons/google-gemini-icon.svg')}}"
@@ -53,13 +60,32 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link link-body-emphasis">
-                    <img class="img-fluid me-2" src="{{asset('assets/icons/claude-ai-icon.svg')}}" id="responsive-icon"
-                        style="width: 18% ">
-                    Claude.ai
+                <a wire:navigation href="llama" class="nav-link link-body-emphasis {{request()->is('llama') ? 'active' : ''}}">
+                    <img class="img-fluid me-2" src="{{asset('assets/icons/meta.png')}}"
+                        id="responsive-icon" style="width: 18% ">
+                    Llama
+                </a>
+            </li>
+            <li class="nav-item">
+                <a wire:navigation href="gemma" class="nav-link link-body-emphasis {{request()->is('gemma') ? 'active' : ''}}">
+                    <img class="img-fluid me-2" src="{{asset('assets/icons/gemma-color.svg')}}"
+                        id="responsive-icon" style="width: 18% ">
+                    Gemma
                 </a>
             </li>
             <hr>
+            <li class="nav-item">
+                <a wire:navigation href="generate-summary" class="nav-link link-body-emphasis {{request()->is('generate-summary') ? 'active' : ''}}">
+                    <i class="fas fa-align-left me-2"></i>
+                    Generate Summary
+                </a>
+            </li>
+            <li class="nav-item">
+                <a wire:navigation href="classification" class="nav-link link-body-emphasis {{request()->is('classification') ? 'active' : ''}}">
+                    <i class="fas fa-sort-amount-up"></i>
+                    Classification
+                </a>
+            </li>
         </ul>
     </aside>
 </div>

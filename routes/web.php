@@ -1,7 +1,13 @@
 <?php
 
+use App\Livewire\Classification\Classification;
+use App\Livewire\Claude\Claude;
 use App\Livewire\Gemini\Gemini;
+use App\Livewire\Gemma\Gemma;
+use App\Livewire\Groq\Groq;
+use App\Livewire\Llama\Llama;
 use App\Livewire\Openai\Index;
+use App\Livewire\Summary\Summary;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,4 +22,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', Gemini::class)->name('gemini');
+Route::get('/llama', Llama::class)->name('llama');
+Route::get('/gemma', Gemma::class)->name('gemma');
+Route::get('/generate-summary', Summary::class)->name('summary');
+Route::get('/classification', Classification::class)->name('classification');
+// Route::get('/claudeai', action: Claude::class)->name('claude');
 // Route::get('/openai', Index::class)->name('openai);

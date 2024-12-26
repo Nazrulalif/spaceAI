@@ -1,41 +1,41 @@
 <div>
     @include('livewire.partials.navbar')
-    
+
     <div class="d-flex flex-column ">
         <div class="px-1 px-md-5 pt-3">
             <div class="w-100">
                 <div class="chat-window" id="chatWindow">
 
                     @forelse ($results as $msg)
-                         @if ($msg['type'] === 'user')
-                        <div class="text-end my-2">
-                            <div class="message user">
-                                {{ $msg['content'] }}
-                            </div>
+                    @if ($msg['type'] === 'user')
+                    <div class="text-end my-2">
+                        <div class="message user">
+                            {{ $msg['content'] }}
                         </div>
-                        @else
-                        <div class="text-start my-2">
-                            <div class="message ai">
-                                {!! $msg['content'] !!}
-                            </div>
+                    </div>
+                    @else
+                    <div class="text-start my-2">
+                        <div class="message ai">
+                            {!! $msg['content'] !!}
                         </div>
-                        @endif
+                    </div>
+                    @endif
                     @empty
-                        <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 20rem">
-                            <div class="fs-5">
-                                🌟🚀 Start your first chat 🚀🌟
-                            </div>
+                    <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 20rem">
+                        <div class="fs-5">
+                            🌟🚀 Start your first chat 🚀🌟
                         </div>
+                    </div>
                     @endforelse
-
+                   
                 </div>
                 <div>
-                    <form wire:submit.prevent='send' id="chatForm" class="d-flex justify-content-center align-items-center gap-3">
-                        <a  wire:click='clear' class="btn text-center text-white fs-5" title="Clear all chat"
+                    <form wire:submit.prevent='send' id="chatForm"
+                        class="d-flex justify-content-center align-items-center gap-3">
+                        <a wire:click='clear' class="btn text-center text-white fs-5" title="Clear all chat"
                             style="width: 50px; height: 50px;">
                             <i class="fas fa-trash"></i>
-                         </a>
-
+                        </a>
                         <input type="text" wire:model.live='message' id="chatInput"
                             class="form-control p-3 rounded-pill" placeholder="Type your message..." autocomplete="off">
 
@@ -58,7 +58,7 @@
 <script>
     document.addEventListener('livewire:load', function () {
         // Load chat history from localStorage when page is loaded
-        const storedResults = localStorage.getItem('chat_history');
+        const storedResults = localStorage.getItem('chat_history_llama');
         if (storedResults) {
             const results = JSON.parse(storedResults);
             results.forEach(message => {
@@ -70,11 +70,11 @@
         Livewire.hook('message.processed', (message, component) => {
             const chatWindow = document.getElementById('chatWindow');
             chatWindow.scrollTop = chatWindow
-            .scrollHeight; // Scroll to the bottom after messages update
+                .scrollHeight; // Scroll to the bottom after messages update
 
             // Save the current chat history to localStorage
             const chatHistory = @this.results; // Fetch the results from Livewire component
-            localStorage.setItem('chat_history_gemini', JSON.stringify(chatHistory));
+            localStorage.setItem('chat_history_llama', JSON.stringify(chatHistory));
         });
     });
 
@@ -97,19 +97,10 @@
 
         chatInput.value = '';
 
-        // Simulate AI response
-        setTimeout(() => {
-            const aiDiv = document.createElement('div');
-            aiDiv.className = 'text-start my-2';
-            aiDiv.innerHTML = `<div class="message ai">Gemini is typing...</div>`;
-            chatWindow.appendChild(aiDiv);
-
-            // Scroll to the bottom
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }, 1000);
     });
-   // Show/Hide Scroll Down Button based on scroll position
-   chatWindow.addEventListener('scroll', () => {
+
+    // Show/Hide Scroll Down Button based on scroll position
+    chatWindow.addEventListener('scroll', () => {
         if (chatWindow.scrollHeight - chatWindow.scrollTop > chatWindow.clientHeight + 100) {
             scrollDownBtn.style.display = 'block';
         } else {
@@ -126,4 +117,5 @@
     Livewire.hook('message.processed', () => {
         chatWindow.scrollTop = chatWindow.scrollHeight;
     });
+
 </script>
