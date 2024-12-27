@@ -2,18 +2,20 @@
     @include('livewire.partials.navbar')
 
     <div class="d-flex flex-column">
-        <div class="px-1 px-md-5 pt-4">
+        <div class="px-1 px-md-5 pt-1">
             <div class="w-100">
-                <div class="chat-window" id="chatWindow" style="max-height: 60vh; min-height: 60vh">
+                <div class="chat-window" id="chatWindow" >
                     @forelse ($results as $index => $msg)
                     @if ($msg['type'] === 'user')
                     <div class="text-end my-4">
                         <div class="message user">
-                            <div class="fs-6 fw-bold">Zero-Shot Classification</div>
-                            {{ $msg['content']['text'] }}
-                            <br><br>
-                            <div class="fs-6 fw-bold">Possible class names</div>
-                            {{ $msg['content']['class'] }}
+                            {{ $msg['content'] }}
+                        </div>
+                    </div>
+                    @elseif ($msg['type'] === 'system')
+                    <div class="text-start my-4">
+                        <div class="message ai">
+                            {{ $msg['content'] }}
                         </div>
                     </div>
                     @else
@@ -28,7 +30,7 @@
                     @empty
                     <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 20rem">
                         <div class="fs-5">
-                            🌟🚀 Start your zero-shot classification 🚀🌟
+                            🌟🚀 Start your fill mask 🚀🌟
                         </div>
                     </div>
                     @endforelse
@@ -36,18 +38,23 @@
 
                 <div>
                     <form wire:submit.prevent="send" id="chatForm"
-                        class="d-flex justify-content-center align-items-center gap-3">
+                        class="d-flex justify-content-center align-items-center gap-3 pb-3">
                         <a wire:click="clear" class="btn text-center trash fs-5" title="Clear all chat"
                             style="width: 50px; height: 50px;">
                             <i class="fas fa-trash"></i>
                         </a>
-
-                        <div class="d-flex flex-column align-items-center gap-2 w-100 pb-2">
-                            <textarea wire:model="message" rows="1" id="chatInput" class="form-control p-3 rounded-pill"
-                                placeholder="Zero-Shot Classification" autocomplete="off"></textarea>
-                            <input type="text" wire:model="class" id="chatInput2" class="form-control p-3 rounded-pill"
-                                placeholder="Possible class names (comma-separated)" autocomplete="off">
-                        </div>
+                        @if ($model === 'microsoft/deberta-v3-base'|| $model === 'google-bert/bert-base-uncased'|| $model === 'distilbert/distilbert-base-uncased')
+                            @php
+                                $placeholder = "Mask token: [MASK] (eg: Paris is the [MASK] of France)";
+                            @endphp
+                        @else
+                            @php
+                                $placeholder = "Mask token: <mask> (eg: Paris is the <mask> of France)";
+                            @endphp
+                        @endif
+                        
+                        <input type="text" wire:model="message" id="chatInput" class="form-control p-3 rounded-pill"
+                            placeholder="{{$placeholder}}" autocomplete="off">
 
                         <button type="submit" class="btn rounded-circle bg-light text-center"
                             style="width: 50px; height: 50px;">
@@ -63,10 +70,9 @@
     </div>
 
     <script>
-        let charts = {};
+         let charts = {};
 
         document.addEventListener('livewire:init', () => {
-
             // Initialize existing charts
             const results = @json($results);
 
@@ -76,16 +82,11 @@
                 }
             });
 
+          
             // Listen for new chart data
-            Livewire.on('newChartData', (eventData) => {
-
-                // Extract data from the event
-                const {
-                    chartId,
-                    labels,
-                    scores
-                } = eventData.data;
-
+            Livewire.on('newChartDataFillMask', (eventData) => {
+                const { chartId, labels, scores } = eventData.data;
+                
                 // Add a small delay to ensure the DOM is ready
                 setTimeout(() => {
                     createOrUpdateChart(chartId, labels, scores);
@@ -93,7 +94,7 @@
             });
 
             // Listen for clear charts event
-            Livewire.on('clearCharts', () => {
+            Livewire.on('clearChartsFillMask', () => {
                 Object.values(charts).forEach(chart => chart.destroy());
                 charts = {};
             });
@@ -119,7 +120,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Classification Scores',
+                        label: 'Prediction Scores',
                         data: scores,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -148,35 +149,38 @@
                     responsive: true,
                     scales: {
                         y: {
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 0.1
-                            }
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Fill Mask Predictions'
                         }
                     }
                 }
             });
         }
+
         // Handle scroll functionality
         const chatWindow = document.getElementById('chatWindow');
-            const scrollDownBtn = document.getElementById('scrollDownBtn');
+        const scrollDownBtn = document.getElementById('scrollDownBtn');
 
-            chatWindow.addEventListener('scroll', () => {
-                if (chatWindow.scrollHeight - chatWindow.scrollTop > chatWindow.clientHeight + 100) {
-                    scrollDownBtn.style.display = 'block';
-                } else {
-                    scrollDownBtn.style.display = 'none';
-                }
-            });
+        chatWindow.addEventListener('scroll', () => {
+            if (chatWindow.scrollHeight - chatWindow.scrollTop > chatWindow.clientHeight + 100) {
+                scrollDownBtn.style.display = 'block';
+            } else {
+                scrollDownBtn.style.display = 'none';
+            }
+        });
 
-            scrollDownBtn?.addEventListener('click', () => {
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-            });
+        scrollDownBtn?.addEventListener('click', () => {
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        });
 
-            // Ensure chat window is scrolled to the bottom on page load and after updates
-            Livewire.hook('message.processed', () => {
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-            });
+        // Ensure chat window is scrolled to the bottom on page load and after updates
+        Livewire.hook('message.processed', () => {
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        });
     </script>
 </div>
-

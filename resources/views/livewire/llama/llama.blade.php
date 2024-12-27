@@ -2,7 +2,7 @@
     @include('livewire.partials.navbar')
 
     <div class="d-flex flex-column ">
-        <div class="px-1 px-md-5 pt-3">
+        <div class="px-1 px-md-5 pt-1">
             <div class="w-100">
                 <div class="chat-window" id="chatWindow">
 
@@ -31,8 +31,8 @@
                 </div>
                 <div>
                     <form wire:submit.prevent='send' id="chatForm"
-                        class="d-flex justify-content-center align-items-center gap-3">
-                        <a wire:click='clear' class="btn text-center text-white fs-5" title="Clear all chat"
+                        class="d-flex justify-content-center align-items-center gap-3 pb-4">
+                        <a wire:click='clear' class="btn text-center fs-5" title="Clear all chat"
                             style="width: 50px; height: 50px;">
                             <i class="fas fa-trash"></i>
                         </a>

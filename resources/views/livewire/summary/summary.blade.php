@@ -32,7 +32,7 @@
                 <div>
                     <form wire:submit.prevent='send' id="chatForm"
                         class="d-flex justify-content-center align-items-center gap-3 pb-4">
-                        <a wire:click='clear' class="btn text-center text-white fs-5" title="Clear all chat"
+                        <a wire:click='clear' class="btn text-center fs-5" title="Clear all chat"
                             style="width: 50px; height: 50px;">
                             <i class="fas fa-trash"></i>
                         </a>

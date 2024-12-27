@@ -9,7 +9,7 @@
             </button>
             <div class="navbar-brand font-monospace fs-5">
 
-                <select wire:model="model" id="model" class="form-control" style="max-width: 15rem">
+                <select wire:model.live="model" id="model" class="form-control" style="max-width: 15rem">
                     @foreach ($model_type as $key => $name)
                     <option value="{{ $key }}">{{ $name }}</option>
                     @endforeach

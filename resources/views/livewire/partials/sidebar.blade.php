@@ -37,7 +37,7 @@
                 data-bs-theme="dark">
         </a>
         <hr>
-        <ul class="nav nav-pills flex-column mb-auto text-nowrap">
+        <ul class="nav nav-pills flex-column mb-auto text-wrap gap-2">
             {{-- <li class="nav-item ">
                 <a wire:navigation href="/" class="nav-link link-body-emphasis {{request()->is('/') ? 'active' : ''}} " aria-current="page">
                     <img class="img-fluid me-2" src="{{asset('assets/icons/chatgpt-icon.svg')}}" id="responsive-icon"
@@ -67,7 +67,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a wire:navigation href="gemma" class="nav-link link-body-emphasis {{request()->is('gemma') ? 'active' : ''}}">
+                <a wire:navigation href="gemma" class="nav-link link-body-emphasis  {{request()->is('gemma') ? 'active' : ''}}">
                     <img class="img-fluid me-2" src="{{asset('assets/icons/gemma-color.svg')}}"
                         id="responsive-icon" style="width: 18% ">
                     Gemma
@@ -76,14 +76,22 @@
             <hr>
             <li class="nav-item">
                 <a wire:navigation href="generate-summary" class="nav-link link-body-emphasis {{request()->is('generate-summary') ? 'active' : ''}}">
-                    <i class="fas fa-align-left me-2"></i>
                     Generate Summary
                 </a>
             </li>
             <li class="nav-item">
-                <a wire:navigation href="classification" class="nav-link link-body-emphasis {{request()->is('classification') ? 'active' : ''}}">
-                    <i class="fas fa-sort-amount-up"></i>
-                    Classification
+                <a wire:navigation href="zero-shot-classification" class="nav-link link-body-emphasis {{request()->is('zero-shot-classification') ? 'active' : ''}}">
+                    Zero-shot Classification
+                </a>
+            </li>
+            <li class="nav-item">
+                <a wire:navigation href="image-classification" class="nav-link link-body-emphasis {{request()->is('image-classification') ? 'active' : ''}}">
+                    Image Classification
+                </a>
+            </li>
+            <li class="nav-item">
+                <a wire:navigation href="fill-mask" class="nav-link link-body-emphasis {{request()->is('fill-mask') ? 'active' : ''}}">
+                    Fill Mask
                 </a>
             </li>
         </ul>
