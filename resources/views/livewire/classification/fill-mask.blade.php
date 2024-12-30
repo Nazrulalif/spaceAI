@@ -8,8 +8,8 @@
                     @forelse ($results as $index => $msg)
                     @if ($msg['type'] === 'user')
                     <div class="text-end my-4">
-                        <div class="message" style="text-align: right">
-                            <img src="{{ $msg['content']['url'] }}" alt="Uploaded Image" class="w-50 p-4 rounded" style="background-color: #303030">
+                        <div class="message user">
+                            {{ $msg['content'] }}
                         </div>
                     </div>
                     @elseif ($msg['type'] === 'system')
@@ -30,7 +30,7 @@
                     @empty
                     <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 20rem">
                         <div class="fs-5">
-                            🌟🚀 Start your image classification 🚀🌟
+                            🌟🚀 Start your fill mask 🚀🌟
                         </div>
                     </div>
                     @endforelse
@@ -38,19 +38,29 @@
 
                 <div>
                     <form wire:submit.prevent="send" id="chatForm"
-                        class="d-flex justify-content-center align-items-center gap-3 pb-3">
+                        class="d-flex justify-content-center align-items-center gap-3 pb-2">
                         <a wire:click="clear" class="btn text-center trash fs-5" title="Clear all chat"
                             style="width: 50px; height: 50px;">
                             <i class="fas fa-trash"></i>
                         </a>
+                        @if ($model === 'microsoft/deberta-v3-base'|| $model === 'google-bert/bert-base-uncased'|| $model === 'distilbert/distilbert-base-uncased')
+                            @php
+                                $mask_token = "Mask token: [MASK]";
+                                $placeholder = "eg: Paris is the [MASK] of France";
+                            @endphp
+                        @else
+                            @php
+                                $mask_token = "Mask token: <mask>";
+                                $placeholder = "eg: Paris is the <mask> of France";
+                            @endphp
+                        @endif
+
+                        <div class="d-flex flex-column align-items-center w-100">
+                            <small>{{$mask_token}}</small>
                         
-                            <input type="file" 
-                                   wire:model="message" 
-                                   id="chatInput" 
-                                   accept=".jpeg, .png, .jpg"
-                                   class="form-control p-3 rounded-pill pe-5 ps-5" 
-                                   placeholder="Upload a file" 
-                                   autocomplete="off">
+                            <input type="text" wire:model="message" id="chatInput" class="form-control p-3 rounded-pill"
+                                placeholder="{{$placeholder}}" autocomplete="off">
+                        </div>
 
                         <button type="submit" class="btn rounded-circle bg-light text-center"
                             style="width: 50px; height: 50px;">
@@ -80,7 +90,7 @@
 
           
             // Listen for new chart data
-            Livewire.on('newChartDataImageClass', (eventData) => {
+            Livewire.on('newChartDataFillMask', (eventData) => {
                 const { chartId, labels, scores } = eventData.data;
                 
                 // Add a small delay to ensure the DOM is ready
@@ -90,7 +100,7 @@
             });
 
             // Listen for clear charts event
-            Livewire.on('clearChartsImageClass', () => {
+            Livewire.on('clearChartsFillMask', () => {
                 Object.values(charts).forEach(chart => chart.destroy());
                 charts = {};
             });
@@ -116,7 +126,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Classification Scores',
+                        label: 'Prediction Scores',
                         data: scores,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -151,7 +161,7 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Image Classification'
+                            text: 'Fill Mask Predictions'
                         }
                     }
                 }

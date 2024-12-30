@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Summary;
+namespace App\Livewire\Generate;
 
 use Livewire\Component;
 use GuzzleHttp\Client;
@@ -84,6 +84,6 @@ class Summary extends Component
 
     public function render()
     {
-        return view('livewire.summary.summary');
+        return view('livewire.generate.summary');
     }
 }

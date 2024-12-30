@@ -27,8 +27,7 @@
             </path>
         </symbol>
     </svg>
-    <aside class="collapse show collapse-horizontal col-sm-2 p-3 shadow-sm min-vh-100"
-        id="collapseWidthExample">
+    <aside class="collapse show collapse-horizontal col-sm-2 p-3 shadow-sm min-vh-100" id="collapseWidthExample">
         <a href="/"
             class="d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none ">
             <img class="img-fluid me-2 light-image" src="{{asset('assets/icons/spaceAI.png')}}" style="width: 60%"
@@ -37,20 +36,21 @@
                 data-bs-theme="dark">
         </a>
         <hr>
-        <ul class="nav nav-pills flex-column mb-auto text-wrap gap-2">
+        <ul class="nav nav-pills flex-column mb-auto text-wrap gap-1">
             {{-- <li class="nav-item ">
-                <a wire:navigation href="/" class="nav-link link-body-emphasis {{request()->is('/') ? 'active' : ''}} " aria-current="page">
-                    <img class="img-fluid me-2" src="{{asset('assets/icons/chatgpt-icon.svg')}}" id="responsive-icon"
-                        style="width: 18% ">
-                    ChatGPT
-                </a>
+                <a wire:navigation href="/" class="nav-link link-body-emphasis {{request()->is('/') ? 'active' : ''}} "
+            aria-current="page">
+            <img class="img-fluid me-2" src="{{asset('assets/icons/chatgpt-icon.svg')}}" id="responsive-icon"
+                style="width: 18% ">
+            ChatGPT
+            </a>
             </li> --}}
             {{-- <li class="nav-item">
                 <a wire:navigation href="claudeai" class="nav-link link-body-emphasis  {{request()->is('claudeai') ? 'active' : ''}}">
-                    <img class="img-fluid me-2" src="{{asset('assets/icons/claude-ai-icon.svg')}}" id="responsive-icon"
-                        style="width: 18% ">
-                    Claude.ai
-                </a>
+            <img class="img-fluid me-2" src="{{asset('assets/icons/claude-ai-icon.svg')}}" id="responsive-icon"
+                style="width: 18% ">
+            Claude.ai
+            </a>
             </li> --}}
             <li class="nav-item">
                 <a wire:navigation href="/" class="nav-link link-body-emphasis {{request()->is('/') ? 'active' : ''}}">
@@ -60,40 +60,95 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a wire:navigation href="llama" class="nav-link link-body-emphasis {{request()->is('llama') ? 'active' : ''}}">
-                    <img class="img-fluid me-2" src="{{asset('assets/icons/meta.png')}}"
-                        id="responsive-icon" style="width: 18% ">
+                <a wire:navigation href="llama"
+                    class="nav-link link-body-emphasis {{request()->is('llama') ? 'active' : ''}}">
+                    <img class="img-fluid me-2" src="{{asset('assets/icons/meta.png')}}" id="responsive-icon"
+                        style="width: 18% ">
                     Llama
                 </a>
             </li>
             <li class="nav-item">
-                <a wire:navigation href="gemma" class="nav-link link-body-emphasis  {{request()->is('gemma') ? 'active' : ''}}">
-                    <img class="img-fluid me-2" src="{{asset('assets/icons/gemma-color.svg')}}"
-                        id="responsive-icon" style="width: 18% ">
+                <a wire:navigation href="gemma"
+                    class="nav-link link-body-emphasis  {{request()->is('gemma') ? 'active' : ''}}">
+                    <img class="img-fluid me-2" src="{{asset('assets/icons/gemma-color.svg')}}" id="responsive-icon"
+                        style="width: 18% ">
                     Gemma
                 </a>
             </li>
             <hr>
-            <li class="nav-item">
-                <a wire:navigation href="generate-summary" class="nav-link link-body-emphasis {{request()->is('generate-summary') ? 'active' : ''}}">
-                    Generate Summary
-                </a>
-            </li>
-            <li class="nav-item">
-                <a wire:navigation href="zero-shot-classification" class="nav-link link-body-emphasis {{request()->is('zero-shot-classification') ? 'active' : ''}}">
-                    Zero-shot Classification
-                </a>
-            </li>
-            <li class="nav-item">
-                <a wire:navigation href="image-classification" class="nav-link link-body-emphasis {{request()->is('image-classification') ? 'active' : ''}}">
-                    Image Classification
-                </a>
-            </li>
-            <li class="nav-item">
-                <a wire:navigation href="fill-mask" class="nav-link link-body-emphasis {{request()->is('fill-mask') ? 'active' : ''}}">
-                    Fill Mask
-                </a>
-            </li>
+            <ul class="list-unstyled ps-0">
+                <li class="mb-1">
+                    <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                        data-bs-toggle="collapse" data-bs-target="#generate-collapse" aria-expanded="false">
+                        Generate
+                    </a>
+                    <div class="collapse {{request()->is('generate-summary', 'text-to-image', 'image-to-text') ? 'show' : ''}} "
+                        id="generate-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ">
+                            <li class="nav-item">
+                                <a wire:navigation href="generate-summary"
+                                    class="nav-link link-body-emphasis {{request()->is('generate-summary') ? 'active' : ''}}">
+                                    Summary
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ">
+                            <li class="nav-item">
+                                <a wire:navigation href="text-to-image"
+                                    class="nav-link link-body-emphasis {{request()->is('text-to-image') ? 'active' : ''}}">
+                                    Text to Image
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ">
+                            <li class="nav-item">
+                                <a wire:navigation href="image-to-text"
+                                    class="nav-link link-body-emphasis {{request()->is('image-to-text') ? 'active' : ''}}">
+                                    Image to Text
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <ul class="list-unstyled ps-0">
+                <li class="mb-1">
+                    <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                        data-bs-toggle="collapse" data-bs-target="#classification-collapse" aria-expanded="false">
+                        Classification
+                    </a>
+                    <div class="collapse {{request()->is('zero-shot-classification', 'image-classification', 'fill-mask', 'sentiment') ? 'show' : ''}} "
+                        id="classification-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ">
+                            <li class="nav-item">
+                                <a wire:navigation href="zero-shot-classification"
+                                    class="nav-link link-body-emphasis {{request()->is('zero-shot-classification') ? 'active' : ''}}">
+                                    Zero-shot
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a wire:navigation href="sentiment"
+                                    class="nav-link link-body-emphasis {{request()->is('sentiment') ? 'active' : ''}}">
+                                    Sentiment
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a wire:navigation href="fill-mask"
+                                    class="nav-link link-body-emphasis {{request()->is('fill-mask') ? 'active' : ''}}">
+                                    Fill Mask
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a wire:navigation href="image-classification"
+                                    class="nav-link link-body-emphasis {{request()->is('image-classification') ? 'active' : ''}}">
+                                    Image
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </li>
+            </ul>
         </ul>
     </aside>
 </div>

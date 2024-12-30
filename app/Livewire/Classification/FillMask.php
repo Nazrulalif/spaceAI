@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Livewire\FillMask;
+namespace App\Livewire\Classification;
+
 
 use Livewire\Component;
 use GuzzleHttp\Client;
@@ -18,10 +19,10 @@ class FillMask extends Component
     {
         $this->model_type = [
             'FacebookAI/roberta-base' => 'FacebookAI/roberta-base',
-            'FacebookAI/xlm-roberta-base' => 'FacebookAI/xlm-roberta-base',
+            // 'FacebookAI/xlm-roberta-base' => 'FacebookAI/xlm-roberta-base',
             'microsoft/deberta-v3-base' => 'microsoft/deberta-v3-base',
-            'google-bert/bert-base-uncased' => 'google-bert/bert-base-uncased',
-            'distilbert/distilbert-base-uncased' => 'distilbert/distilbert-base-uncased',
+            // 'google-bert/bert-base-uncased' => 'google-bert/bert-base-uncased',
+            // 'distilbert/distilbert-base-uncased' => 'distilbert/distilbert-base-uncased',
 
         ];
         $this->results = session()->get('chat_history_fillMask', []);
@@ -121,6 +122,8 @@ class FillMask extends Component
                     'raw_response' => $data
                 ]
             ];
+
+            // dd($data);
             
             // Dispatch event with the processed data
             $this->dispatch('newChartDataFillMask', data: [
@@ -145,6 +148,6 @@ class FillMask extends Component
 
     public function render()
     {
-        return view('livewire.fill-mask.fill-mask');
+        return view('livewire.classification.fill-mask');
     }
 }

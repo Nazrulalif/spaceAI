@@ -30,7 +30,7 @@
                     @empty
                     <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 20rem">
                         <div class="fs-5">
-                            🌟🚀 Start your fill mask 🚀🌟
+                            🌟🚀 Start your Sentiment Analysis 🚀🌟
                         </div>
                     </div>
                     @endforelse
@@ -43,18 +43,9 @@
                             style="width: 50px; height: 50px;">
                             <i class="fas fa-trash"></i>
                         </a>
-                        @if ($model === 'microsoft/deberta-v3-base'|| $model === 'google-bert/bert-base-uncased'|| $model === 'distilbert/distilbert-base-uncased')
-                            @php
-                                $placeholder = "Mask token: [MASK] (eg: Paris is the [MASK] of France)";
-                            @endphp
-                        @else
-                            @php
-                                $placeholder = "Mask token: <mask> (eg: Paris is the <mask> of France)";
-                            @endphp
-                        @endif
                         
                         <input type="text" wire:model="message" id="chatInput" class="form-control p-3 rounded-pill"
-                            placeholder="{{$placeholder}}" autocomplete="off">
+                        placeholder="Type your message" autocomplete="off">
 
                         <button type="submit" class="btn rounded-circle bg-light text-center"
                             style="width: 50px; height: 50px;">
@@ -84,9 +75,9 @@
 
           
             // Listen for new chart data
-            Livewire.on('newChartDataFillMask', (eventData) => {
+            Livewire.on('newChartDataTextClass', (eventData) => {
                 const { chartId, labels, scores } = eventData.data;
-                
+
                 // Add a small delay to ensure the DOM is ready
                 setTimeout(() => {
                     createOrUpdateChart(chartId, labels, scores);
@@ -94,7 +85,7 @@
             });
 
             // Listen for clear charts event
-            Livewire.on('clearChartsFillMask', () => {
+            Livewire.on('clearChartsTextClass', () => {
                 Object.values(charts).forEach(chart => chart.destroy());
                 charts = {};
             });
@@ -103,6 +94,7 @@
         function createOrUpdateChart(chartId, labels, scores) {
             const canvasId = `chart-${chartId}`;
             const canvas = document.getElementById(canvasId);
+            console.log(labels);
 
             if (!canvas) {
                 console.error('Canvas not found:', canvasId);
@@ -120,7 +112,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Prediction Scores',
+                        label: 'Classification Scores',
                         data: scores,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -155,7 +147,7 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Fill Mask Predictions'
+                            text: 'Sentiment Analysis'
                         }
                     }
                 }

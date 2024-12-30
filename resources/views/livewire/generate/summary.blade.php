@@ -29,6 +29,7 @@
                     @endforelse
 
                 </div>
+                {{$message}}
                 <div>
                     <form wire:submit.prevent='send' id="chatForm"
                         class="d-flex justify-content-center align-items-center gap-3 pb-4">
