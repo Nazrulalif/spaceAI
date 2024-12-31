@@ -37,21 +37,6 @@
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto text-wrap gap-1">
-            {{-- <li class="nav-item ">
-                <a wire:navigation href="/" class="nav-link link-body-emphasis {{request()->is('/') ? 'active' : ''}} "
-            aria-current="page">
-            <img class="img-fluid me-2" src="{{asset('assets/icons/chatgpt-icon.svg')}}" id="responsive-icon"
-                style="width: 18% ">
-            ChatGPT
-            </a>
-            </li> --}}
-            {{-- <li class="nav-item">
-                <a wire:navigation href="claudeai" class="nav-link link-body-emphasis  {{request()->is('claudeai') ? 'active' : ''}}">
-            <img class="img-fluid me-2" src="{{asset('assets/icons/claude-ai-icon.svg')}}" id="responsive-icon"
-                style="width: 18% ">
-            Claude.ai
-            </a>
-            </li> --}}
             <li class="nav-item">
                 <a wire:navigation href="/" class="nav-link link-body-emphasis {{request()->is('/') ? 'active' : ''}}">
                     <img class="img-fluid me-2" src="{{asset('assets/icons/google-gemini-icon.svg')}}"
@@ -82,7 +67,7 @@
                         data-bs-toggle="collapse" data-bs-target="#generate-collapse" aria-expanded="false">
                         Generate
                     </a>
-                    <div class="collapse {{request()->is('generate-summary', 'text-to-image', 'image-to-text') ? 'show' : ''}} "
+                    <div class="collapse {{request()->is('generate-summary', 'text-to-image', 'image-to-text', 'ocr') ? 'show' : ''}} "
                         id="generate-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ">
                             <li class="nav-item">
@@ -104,7 +89,15 @@
                             <li class="nav-item">
                                 <a wire:navigation href="image-to-text"
                                     class="nav-link link-body-emphasis {{request()->is('image-to-text') ? 'active' : ''}}">
-                                    Image to Text
+                                    Image Caption
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ">
+                            <li class="nav-item">
+                                <a wire:navigation href="ocr"
+                                    class="nav-link link-body-emphasis {{request()->is('ocr') ? 'active' : ''}}">
+                                    Optical Character Recognition (OCR)
                                 </a>
                             </li>
                         </ul>

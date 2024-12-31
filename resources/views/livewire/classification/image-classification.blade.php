@@ -174,9 +174,5 @@
             chatWindow.scrollTop = chatWindow.scrollHeight;
         });
 
-        // Ensure chat window is scrolled to the bottom on page load and after updates
-        Livewire.hook('message.processed', () => {
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        });
     </script>
 </div>

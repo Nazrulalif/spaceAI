@@ -8,6 +8,7 @@ use App\Livewire\Claude\Claude;
 use App\Livewire\Gemini\Gemini;
 use App\Livewire\Gemma\Gemma;
 use App\Livewire\Generate\ImageToText;
+use App\Livewire\Generate\Ocr;
 use App\Livewire\Generate\Summary;
 use App\Livewire\Generate\TextToImage;
 use App\Livewire\Groq\Groq;
@@ -16,14 +17,17 @@ use App\Livewire\Openai\Index;
 use Illuminate\Support\Facades\Route;
 
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
+|---------------------------------------------------------------------------
+|                  2024
+|                 Credits
+|---------------------------------------------------------------------------
+| Developed by Muhammad Nazrul Alif
+| GitHub: https://github.com/Nazrulalif/
+| Website: https://nazrulalif.vercel.app/
+| WhatsApp: 014-9209024
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
+| Feel free to explore and contribute to this project!
+|---------------------------------------------------------------------------
 */
 
 Route::get('/', Gemini::class)->name('gemini');
@@ -36,5 +40,5 @@ Route::get('/image-classification', ImageClassification::class)->name('classific
 Route::get('/sentiment', TextClassification::class)->name('classification.text');
 Route::get('/text-to-image', TextToImage::class)->name('text_to_image');
 Route::get('/image-to-text', ImageToText::class)->name('image_to_text');
-// Route::get('/claudeai', action: Claude::class)->name('claude');
-// Route::get('/openai', Index::class)->name('openai);
+Route::get('/ocr', Ocr::class)->name('ocr');
+

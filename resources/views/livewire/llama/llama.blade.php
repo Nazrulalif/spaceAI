@@ -1,121 +1,102 @@
 <div>
-    @include('livewire.partials.navbar')
-
-    <div class="d-flex flex-column ">
-        <div class="px-1 px-md-5 pt-1">
-            <div class="w-100">
-                <div class="chat-window" id="chatWindow">
-
-                    @forelse ($results as $msg)
-                    @if ($msg['type'] === 'user')
-                    <div class="text-end my-2">
-                        <div class="message user">
-                            {{ $msg['content'] }}
+    <div>
+        @include('livewire.partials.navbar')
+    
+        <div class="d-flex flex-column ">
+            <div class="px-1 px-md-5 pt-1">
+                <div class="w-100">
+                    <div class="chat-window" id="chatWindow">
+    
+                        @forelse ($results as $msg)
+                        @if ($msg['type'] === 'user')
+                        <div class="text-end my-2">
+                            <div class="message user">
+                                {{ $msg['content'] }}
+                            </div>
                         </div>
-                    </div>
-                    @else
-                    <div class="text-start my-2">
-                        <div class="message ai">
-                            {!! $msg['content'] !!}
+                        @else
+                        <div class="text-start my-2">
+                            <div class="message ai">
+                                {!! $msg['content'] !!}
+                            </div>
                         </div>
-                    </div>
-                    @endif
-                    @empty
-                    <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 20rem">
-                        <div class="fs-5">
-                            🌟🚀 Start your first chat 🚀🌟
+                        @endif
+                        @empty
+                        <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 20rem">
+                            <div class="fs-5">
+                                🌟🚀 Start your first chat 🚀🌟
+                            </div>
                         </div>
+                        @endforelse
+                       
                     </div>
-                    @endforelse
-                   
-                </div>
-                <div>
-                    <form wire:submit.prevent='send' id="chatForm"
-                        class="d-flex justify-content-center align-items-center gap-3 pb-4">
-                        <a wire:click='clear' class="btn text-center fs-5" title="Clear all chat"
-                            style="width: 50px; height: 50px;">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                        <input type="text" wire:model.live='message' id="chatInput"
-                            class="form-control p-3 rounded-pill" placeholder="Type your message..." autocomplete="off">
-
-                        <button type="submit" class="btn rounded-circle bg-light text-center"
-                            style="width: 50px; height: 50px;">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                        <button id="scrollDownBtn" class="btn btn-dark rounded-circle "
-                        style="display: none;">
-                        <i class="fas fa-arrow-down"></i>
-                        </button>
-                    </form>
-
+                    <div>
+                        <form wire:submit.prevent='send' id="chatForm"
+                            class="d-flex justify-content-center align-items-center gap-3 pb-4">
+                            <a wire:click='clear' class="btn text-center fs-5" title="Clear all chat"
+                                style="width: 50px; height: 50px;">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            <input type="text" wire:model.live='message' id="chatInput"
+                                class="form-control p-3 rounded-pill" placeholder="Type your message..." autocomplete="off">
+    
+                            <button type="submit" class="btn rounded-circle bg-light text-center"
+                                style="width: 50px; height: 50px;">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                            <button id="scrollDownBtn" class="btn btn-dark rounded-circle "
+                            style="display: none;">
+                            <i class="fas fa-arrow-down"></i>
+                            </button>
+                        </form>
+    
+                    </div>
                 </div>
             </div>
         </div>
+            
     </div>
-
-</div>
-<script>
-    document.addEventListener('livewire:load', function () {
-        // Load chat history from localStorage when page is loaded
-        const storedResults = localStorage.getItem('chat_history_llama');
-        if (storedResults) {
-            const results = JSON.parse(storedResults);
-            results.forEach(message => {
-                appendMessage(message);
-            });
-        }
-
-        // Save chat history to localStorage whenever it is updated
-        Livewire.hook('message.processed', (message, component) => {
+    <script>
+        document.addEventListener('livewire:init', () => {
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const scrollDownBtn = document.getElementById('scrollDownBtn');
             const chatWindow = document.getElementById('chatWindow');
-            chatWindow.scrollTop = chatWindow
-                .scrollHeight; // Scroll to the bottom after messages update
+            const chatInput = document.getElementById('chatInput');
 
-            // Save the current chat history to localStorage
-            const chatHistory = @this.results; // Fetch the results from Livewire component
-            localStorage.setItem('chat_history_llama', JSON.stringify(chatHistory));
+            submitBtn.addEventListener('click', (e) => {
+
+                const userMessage = chatInput.value.trim();
+                if (!userMessage) return;
+
+                const userDiv = document.createElement('div');
+                userDiv.className = 'text-end my-2';
+                userDiv.innerHTML = `<div class="message user">${userMessage}</div>`;
+                chatWindow.appendChild(userDiv);
+        
+                chatInput.value = '';
+
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+                
+            });
+
+            chatWindow.addEventListener('scroll', () => {
+                if (chatWindow.scrollHeight - chatWindow.scrollTop > chatWindow.clientHeight + 100) {
+                    scrollDownBtn.style.display = 'block';
+                } else {
+                    scrollDownBtn.style.display = 'none';
+                }
+            });
+
+            scrollDownBtn?.addEventListener('click', () => {
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            });
+
+            // Handle Livewire response updates
+            Livewire.hook('message.processed', () => {
+                // Ensure chat window scrolls to the bottom
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            });
         });
-    });
-
-    const chatForm = document.getElementById('chatForm');
-    const chatWindow = document.getElementById('chatWindow');
-    const chatInput = document.getElementById('chatInput');
-    const scrollDownBtn = document.getElementById('scrollDownBtn');
-
-    chatForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const userMessage = chatInput.value.trim();
-        if (!userMessage) return;
-
-        // Append user message
-        const userDiv = document.createElement('div');
-        userDiv.className = 'text-end my-2';
-        userDiv.innerHTML = `<div class="message user">${userMessage}</div>`;
-        chatWindow.appendChild(userDiv);
-
-        chatInput.value = '';
-
-    });
-
-    // Show/Hide Scroll Down Button based on scroll position
-    chatWindow.addEventListener('scroll', () => {
-        if (chatWindow.scrollHeight - chatWindow.scrollTop > chatWindow.clientHeight + 100) {
-            scrollDownBtn.style.display = 'block';
-        } else {
-            scrollDownBtn.style.display = 'none';
-        }
-    });
-
-    // Scroll to the bottom when the button is clicked
-    scrollDownBtn.addEventListener('click', () => {
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-    });
-
-    // Ensure chat window is scrolled to the bottom on page load
-    Livewire.hook('message.processed', () => {
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-    });
-
 </script>
+</div>
+
